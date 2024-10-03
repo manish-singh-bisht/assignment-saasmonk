@@ -5,7 +5,7 @@ import { API_BASE_URL } from "@/config";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader, PenSquare, Trash2 } from "lucide-react";
-import { useMoviesStore, useReviewsStore } from "@/store/store";
+import { useReviewsStore } from "@/store/store";
 import { ModalType } from "@/lib/types";
 const ReviewModal = lazy(() => import("../review-modal"));
 
@@ -69,11 +69,11 @@ const Reviews: React.FC = () => {
   if (error) {
     return <div>{error}</div>;
   }
-  const deleteHanlder = async (e, id: string) => {
+  const deleteHanlder = async (e: any, id: string) => {
     e.preventDefault();
     try {
       removeReview(id);
-      const response = await axios.delete(`${API_BASE_URL}/reviews/${id}`);
+      await axios.delete(`${API_BASE_URL}/reviews/${id}`);
     } catch (err) {
       setError("Error fetching reviews. Please try again later.");
     }

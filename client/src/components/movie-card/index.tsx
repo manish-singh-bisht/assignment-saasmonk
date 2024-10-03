@@ -29,7 +29,6 @@ const MovieCard: React.FC<MovieCardProps> = ({
     currentMovie: MovieType | null;
   }>({ type: null, isOpen: false, currentMovie: null });
 
-  const [error, setError] = useState<string | null>(null);
   const handleOpenModal = (type: ModalType, currentMovie: MovieType) => {
     setModalState({ type, isOpen: true, currentMovie });
   };
@@ -37,13 +36,13 @@ const MovieCard: React.FC<MovieCardProps> = ({
   const handleCloseModal = () => {
     setModalState({ type: null, isOpen: false, currentMovie: null });
   };
-  const deleteHanlder = async (e, id: string) => {
+  const deleteHanlder = async (e: any, id: string) => {
     e.preventDefault();
     try {
       removeMovie(id);
-      const response = await axios.delete(`${API_BASE_URL}/movies/${id}`);
+      await axios.delete(`${API_BASE_URL}/movies/${id}`);
     } catch (err) {
-      setError("Error fetching reviews. Please try again later.");
+      console.log("error");
     }
   };
   return (
