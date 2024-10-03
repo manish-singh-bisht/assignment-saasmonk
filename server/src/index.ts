@@ -11,7 +11,7 @@ export const app = express();
 app.use(compression({ level: 6 }));
 
 const restrictedCorsOptions = {
-  origin: ["http://localhost:5173"],
+  origin: ["https://assignment-saasmonk.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"], //currently no authentication and role based authorization
   credentials: true,
