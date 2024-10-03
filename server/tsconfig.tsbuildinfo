@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/config/index.ts","./src/controllers/movieController.ts","./src/controllers/reviewController.ts","./src/lib/prisma.ts","./src/routers/movieRouter.ts","./src/routers/reviewRouter.ts","./src/utils/validations.ts"],"errors":true,"version":"5.6.2"}

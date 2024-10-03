@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Movie {
+  id            String   @id @default(uuid())
+  name          String   @unique
+  releaseDate   DateTime
+  averageRating Float?   @default(0) //optional as per mentioned in the assignment requirements.
+  reviews       Review[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([id])
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  movieId   String
+  review    String
+  reviewer  String? //optional as per mentioned in the assignment requirements.
+  rating    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([movieId])
+}
