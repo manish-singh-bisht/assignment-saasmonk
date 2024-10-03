@@ -37,7 +37,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
   const movies = useMoviesStore((state) => state.movies);
   const setReview = useReviewsStore((state) => state.setReview);
   const updatReview = useReviewsStore((state) => state.updateReview);
-
+  const [loading, setLoading] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState<string | null>(
     movieName || null
   );
@@ -59,6 +59,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
   };
 
   const submitHandler = async () => {
+    setLoading(true)
     if (mode === "create") {
       if (currentReview.movieId) {
         const data = await reviewCreateAction({
@@ -85,7 +86,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
         updatReview(data.review);
       }
     }
-
+  setLoading(false)
     onOpenChange(false);
   };
 
@@ -148,9 +149,11 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
           <div className="w-full justify-end flex">
             <Button
               onClick={submitHandler}
-              className="w-fit bg-primaryBlue py-6"
+              className="w-fit bg-primaryBlue py-6" disabled={loading}
             >
-              {mode === "edit" ? "Update" : "Create"} Review
+            {loading
+                ? "..."
+                : `${mode === "edit" ? "Update" : "Create"} Review`}
             </Button>
           </div>
         </div>
