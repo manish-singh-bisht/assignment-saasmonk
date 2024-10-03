@@ -36,7 +36,7 @@ const MovieModal: React.FC<MovieModalProps> = ({
     name: string;
     releaseDate: Date | null;
   }>(movie || { id: null, name: "", releaseDate: null });
-
+  const [loading, setLoading] = useState(false);
   const setMovie = useMoviesStore((state) => state.setMovie);
   const updateMovie = useMoviesStore((state) => state.updateMovie);
 
@@ -44,6 +44,7 @@ const MovieModal: React.FC<MovieModalProps> = ({
     setCurrentMovie((prev) => ({ ...prev, [item]: value }));
   };
   const submitHandler = async () => {
+    setLoading(true)
     if (mode === "create") {
       if (currentMovie.releaseDate !== null) {
         const data = await movieCreateAction({ currentMovie });
@@ -55,7 +56,7 @@ const MovieModal: React.FC<MovieModalProps> = ({
         updateMovie(data.movie);
       }
     }
-
+setLoading(false)
     onOpenChange(false);
   };
 
@@ -109,8 +110,12 @@ const MovieModal: React.FC<MovieModalProps> = ({
           </Popover>
         </div>
         <div className="w-full justify-end flex">
-          <Button onClick={submitHandler} className="w-fit bg-primaryBlue py-6">
-            {mode === "edit" ? "Update" : "Create"} Movie
+          <Button onClick={submitHandler} className="w-fit bg-primaryBlue py-6" disabled={loading}>
+          
+
+             {loading
+                ? "..."
+                : `${mode === "edit" ? "Update" : "Create"} Movie`}
           </Button>
         </div>
       </DialogContent>
