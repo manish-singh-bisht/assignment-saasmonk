@@ -1,5 +1,5 @@
 # assignment-saasmonk
-This is an assignment for a fullstack role at SaasMonk.
+This is an assignment for a fullstack role .
 
 ## Table of Contents
 - [Demo](#demo)
